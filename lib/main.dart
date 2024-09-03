@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_masterclass/ui/counter_screen.dart';
 
 void main() {
   runApp(MaterialApp(
     title: 'flutter bloc masterclass',
-    home: EquatableTestingState(),
+    home: CounterScreen(),
   ));
 }
 
