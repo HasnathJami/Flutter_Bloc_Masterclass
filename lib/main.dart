@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_masterclass/bloc/counter/counter_bloc.dart';
-import 'package:flutter_bloc_masterclass/ui/counter_screen.dart';
+import 'package:flutter_bloc_masterclass/bloc/multiple_state/multiple_state_bloc.dart';
+import 'package:flutter_bloc_masterclass/ui/multiple_state_screen.dart';
 
 void main() {
-  runApp(BlocProvider(
-    create: (_) => CounterBloc(),
-    child: const MaterialApp(
+  // runApp(BlocProvider(
+  //   create: (_) => CounterBloc(),
+  //   child: BlocProvider(
+  //     create: (_) => MultipleStateBloc(),
+  //     child: MaterialApp(
+  //       title: 'flutter bloc masterclass',
+  //       home: MultipleStateScreen(),
+  //     ),
+  //   ),
+  // ));
+
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (_) => CounterBloc()),
+      BlocProvider(create: (_) => MultipleStateBloc()),
+    ],
+    child: MaterialApp(
       title: 'flutter bloc masterclass',
-      home: CounterScreen(),
+      home: MultipleStateScreen(),
     ),
   ));
 }
