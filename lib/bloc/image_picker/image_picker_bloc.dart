@@ -9,7 +9,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerStates> {
 
   ImagePickerBloc(this.imagePickerUtils) : super(const ImagePickerStates()) {
     on<CameraCapture>(_cameraCapture);
-    on<GalleryImagePicker>(_galleryImagePicker)
+    on<GalleryImagePicker>(_galleryImagePicker);
   }
 
   void _cameraCapture(CameraCapture events,
