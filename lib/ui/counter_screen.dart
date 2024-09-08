@@ -11,7 +11,7 @@ class CounterScreen extends StatefulWidget {
   State<CounterScreen> createState() => _CounterScreenState();
 }
 
-class _CounterScreenState extends State<CounterScreen>
+class _CounterScreenState extends State<CounterScreen> {
   late CounterBloc _counterBloc;
 
   @override
