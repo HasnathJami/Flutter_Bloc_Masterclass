@@ -16,6 +16,8 @@ class _LoginScreenState extends State<LoginScreen> {
   late LoginBloc _loginBloc;
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -45,18 +47,19 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               BlocBuilder<LoginBloc, LoginState>(
                   buildWhen: (current, previous) =>
-                      current.email != previous.email,
+                     false,
                   builder: (context, state) {
                     return TextFormField(
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       focusNode: emailFocusNode,
                       decoration: const InputDecoration(
                           hintText: 'Email', border: OutlineInputBorder()),
                       onChanged: (value) {
-                        context
-                            .read<LoginBloc>()
-                            .add(EmailChanged(email: value));
-                      },
+                        // context
+                        //     .read<LoginBloc>()
+                        //     .add(EmailChanged(email: value));
+                       },
                       onFieldSubmitted: (value) {},
                     );
                   }),
@@ -65,19 +68,22 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               BlocBuilder<LoginBloc, LoginState>(
                   buildWhen: (current, previous) =>
-                      current.password != previous.password,
+                      false,
                   builder: (context, state) {
                     return TextFormField(
+                      controller: passwordController,
                       keyboardType: TextInputType.text,
                       focusNode: passwordFocusNode,
                       decoration: const InputDecoration(
                           hintText: 'Password', border: OutlineInputBorder()),
                       onChanged: (value) {
-                        context
-                            .read<LoginBloc>()
-                            .add(PasswordChanged(password: value));
+
+                       },
+                      onFieldSubmitted: (value) {
+                          // context
+                          //     .read<LoginBloc>()
+                          //     .add(PasswordChanged(password: value));
                       },
-                      onFieldSubmitted: (value) {},
                     );
                   }),
               const SizedBox(
@@ -85,12 +91,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               BlocListener<LoginBloc, LoginState>(
                 listener: (context, state) {
-                  if (state.loginStatus == LoginStatus.error) {
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(
-                          SnackBar(content: Text(state.message.toString())));
-                  }
                   if (state.loginStatus == LoginStatus.loading) {
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
@@ -102,13 +102,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ..showSnackBar(
                           SnackBar(content: Text('Login successful')));
                   }
+
+                  if (state.loginStatus == LoginStatus.error) {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                          SnackBar(content: Text(state.message.toString())));
+                  }
                 },
                 child: BlocBuilder<LoginBloc, LoginState>(
                     buildWhen: (current, previous) => false,
                     builder: (context, state) {
                       return ElevatedButton(
                           onPressed: () {
-                            context.read<LoginBloc>().add(LoginApi());
+                            context.read<LoginBloc>().add(LoginApi(email: emailController.text, password: passwordController.text));
                           },
                           child: const Text('Login'));
                     }),
