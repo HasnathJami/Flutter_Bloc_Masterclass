@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_masterclass/bloc/counter/counter_bloc.dart';
 import 'package:flutter_bloc_masterclass/bloc/image_picker/image_picker_bloc.dart';
 import 'package:flutter_bloc_masterclass/bloc/multiple_state/multiple_state_bloc.dart';
+import 'package:flutter_bloc_masterclass/bloc/post/post_bloc.dart';
 import 'package:flutter_bloc_masterclass/bloc/todo/todo_bloc.dart';
 import 'package:flutter_bloc_masterclass/ui/image_picker_screen.dart';
 import 'package:flutter_bloc_masterclass/ui/multiple_state_screen.dart';
+import 'package:flutter_bloc_masterclass/ui/post_screen.dart';
 import 'package:flutter_bloc_masterclass/ui/todo_screen.dart';
 import 'package:flutter_bloc_masterclass/utils/image_picker_utils.dart';
 
@@ -26,11 +28,12 @@ void main() {
       BlocProvider(create: (_) => CounterBloc()),
       BlocProvider(create: (_) => MultipleStateBloc()),
       BlocProvider(create: (_) =>ImagePickerBloc(ImagePickerUtils())),
-      BlocProvider(create: (_) => ToDoBloc())
+      BlocProvider(create: (_) => ToDoBloc()),
+      BlocProvider(create: (_) => PostBloc()),
     ],
     child: MaterialApp(
       title: 'flutter bloc masterclass',
-      home: TodoScreen(),
+      home: PostScreen(),
     ),
   ));
 }
