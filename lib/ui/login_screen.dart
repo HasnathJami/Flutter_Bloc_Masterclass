@@ -28,6 +28,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
     _loginBloc.close();
   }
 
@@ -38,54 +42,42 @@ class _LoginScreenState extends State<LoginScreen> {
         title: const Text('Login'),
       ),
       body: BlocProvider(
-        create: (_) => LoginBloc(),
+        create: (_) => _loginBloc,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              BlocBuilder<LoginBloc, LoginState>(
-                  buildWhen: (current, previous) =>
-                     false,
-                  builder: (context, state) {
-                    return TextFormField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      focusNode: emailFocusNode,
-                      decoration: const InputDecoration(
-                          hintText: 'Email', border: OutlineInputBorder()),
-                      onChanged: (value) {
-                        // context
-                        //     .read<LoginBloc>()
-                        //     .add(EmailChanged(email: value));
-                       },
-                      onFieldSubmitted: (value) {},
-                    );
-                  }),
+              TextFormField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                focusNode: emailFocusNode,
+                decoration: const InputDecoration(
+                    hintText: 'Email', border: OutlineInputBorder()),
+                onChanged: (value) {
+                  // context
+                  //     .read<LoginBloc>()
+                  //     .add(EmailChanged(email: value));
+                },
+                onFieldSubmitted: (value) {},
+              ),
               const SizedBox(
                 height: 20,
               ),
-              BlocBuilder<LoginBloc, LoginState>(
-                  buildWhen: (current, previous) =>
-                      false,
-                  builder: (context, state) {
-                    return TextFormField(
-                      controller: passwordController,
-                      keyboardType: TextInputType.text,
-                      focusNode: passwordFocusNode,
-                      decoration: const InputDecoration(
-                          hintText: 'Password', border: OutlineInputBorder()),
-                      onChanged: (value) {
-
-                       },
-                      onFieldSubmitted: (value) {
-                          // context
-                          //     .read<LoginBloc>()
-                          //     .add(PasswordChanged(password: value));
-                      },
-                    );
-                  }),
+              TextFormField(
+                controller: passwordController,
+                keyboardType: TextInputType.text,
+                focusNode: passwordFocusNode,
+                decoration: const InputDecoration(
+                    hintText: 'Password', border: OutlineInputBorder()),
+                onChanged: (value) {},
+                onFieldSubmitted: (value) {
+                  // context
+                  //     .read<LoginBloc>()
+                  //     .add(PasswordChanged(password: value));
+                },
+              ),
               const SizedBox(
                 height: 50,
               ),
@@ -115,7 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     builder: (context, state) {
                       return ElevatedButton(
                           onPressed: () {
-                            context.read<LoginBloc>().add(LoginApi(email: emailController.text, password: passwordController.text));
+                            context.read<LoginBloc>().add(LoginApi(
+                                email: emailController.text,
+                                password: passwordController.text));
                           },
                           child: const Text('Login'));
                     }),
