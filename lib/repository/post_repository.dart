@@ -15,12 +15,10 @@ class PostRepository {
         // return body;
         //  var data = PostModel.fromJson(json.decode(response.body));
         final body = json.decode(response.body) as List;
-        return body.map(( dynamic value) {
-          return PostModel(
+        return body.map(( dynamic value) => PostModel(
               postId: value['postId'] as int,
               email: value['email'] as String,
-              body: value['body'] as String);
-        }).toList();
+              body: value['body'] as String)).toList();
       } else {
         return null;
       }

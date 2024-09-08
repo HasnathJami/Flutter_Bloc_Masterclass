@@ -29,7 +29,7 @@ class _PostScreenState extends State<PostScreen> {
       body: BlocBuilder<PostBloc, PostStates>(builder: (context, state) {
         switch (state.postStatus) {
           case PostStatus.loading:
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           case PostStatus.success:
             return ListView.builder(
                 itemCount: state.postList.length,
