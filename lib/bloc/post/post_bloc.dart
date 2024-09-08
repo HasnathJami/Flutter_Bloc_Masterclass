@@ -29,14 +29,16 @@ class PostBloc extends Bloc<PostEvents, PostStates> {
 
   void _filterList(SearchItem event, Emitter<PostStates> emit) async {
     if (event.stSearch.isEmpty) {
-      emit(state.copyWith(tempPostList: [], searchMessage: ''));
+      // emit(state.copyWith(tempPostList: [], searchMessage: ''));
+      emit(state.copyWith(searchMessage: ''));
     } else {
       // tempPostList = state.postList.where((element) => element.id.toString() == event.stSearch.toString()).toList();
       // tempPostList = state.postList.where((element) => element.email.toString() == event.stSearch.toString()).toList();
       tempPostList = state.postList.where((element) => element.email.toString().toLowerCase().contains(event.stSearch.toString().toLowerCase())).toList();
 
       if (tempPostList.isEmpty) {
-        emit(state.copyWith(tempPostList: tempPostList, searchMessage: 'No data found'));
+        // emit(state.copyWith(tempPostList: tempPostList, searchMessage: 'No data found'));
+        emit(state.copyWith(searchMessage: 'No data found'));
       } else {
         emit(state.copyWith(tempPostList: tempPostList, searchMessage: ''));
       }

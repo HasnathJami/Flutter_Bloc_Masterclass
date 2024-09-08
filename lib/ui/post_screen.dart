@@ -25,7 +25,7 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Posts API's'"),
+        title: const Text("Posts API's"),
       ),
       body: BlocBuilder<PostBloc, PostStates>(builder: (context, state) {
         switch (state.postStatus) {
