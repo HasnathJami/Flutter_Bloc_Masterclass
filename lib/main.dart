@@ -4,6 +4,7 @@ import 'package:flutter_bloc_masterclass/bloc/image_picker/image_picker_bloc.dar
 import 'package:flutter_bloc_masterclass/bloc/multiple_state/multiple_state_bloc.dart';
 import 'package:flutter_bloc_masterclass/bloc/post/post_bloc.dart';
 import 'package:flutter_bloc_masterclass/bloc/todo/todo_bloc.dart';
+import 'package:flutter_bloc_masterclass/ui/flutter_freezed/flutter_freezed_test_screen.dart';
 import 'package:flutter_bloc_masterclass/ui/login_screen.dart';
 import 'package:flutter_bloc_masterclass/utils/image_picker_utils.dart';
 
@@ -29,7 +30,7 @@ void main() {
     ],
     child: MaterialApp(
       title: 'flutter bloc masterclass',
-      home: LoginScreen(),
+      home: FlutterFreezedTestScreen(),
     ),
   ));
 }
